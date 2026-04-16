@@ -1,7 +1,11 @@
 from pyrogram import Client, filters
 from config import *
-from modules import *
 
+# IMPORT ALL MODULES PROPERLY
+from modules import admin, ranks, activity, filter, profile, music, logger, welcome
+
+
+# ---------------- CLIENT ----------------
 app = Client(
     "userbot",
     api_id=API_ID,
@@ -9,15 +13,19 @@ app = Client(
     session_string=SESSION
 )
 
+
+# ---------------- BASIC COMMANDS ----------------
 @app.on_message(filters.command("alive", "."))
 async def alive(_, m):
-    await m.reply("🔥 Userbot Alive")
+    await m.reply("🔥 Userbot is Alive")
+
 
 @app.on_message(filters.command("ping", "."))
 async def ping(_, m):
     await m.reply("🏓 Pong")
 
-# LOAD MODULES
+
+# ---------------- LOAD MODULES ----------------
 admin.init(app)
 ranks.init(app)
 activity.init(app)
@@ -27,4 +35,7 @@ music.init(app)
 logger.init(app)
 welcome.init(app)
 
+
+# ---------------- START BOT ----------------
+print("🚀 Userbot Starting...")
 app.run()
