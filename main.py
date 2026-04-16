@@ -1,11 +1,17 @@
 from pyrogram import Client, filters
 from config import *
 
-# IMPORT ALL MODULES PROPERLY
-from modules import admin, ranks, activity, filter, profile, music, logger, welcome
+# IMPORTANT: correct import style
+from modules.admin import init as admin_init
+from modules.ranks import init as ranks_init
+from modules.activity import init as activity_init
+from modules.filter import init as filter_init
+from modules.profile import init as profile_init
+from modules.music import init as music_init
+from modules.logger import init as logger_init
+from modules.welcome import init as welcome_init
 
 
-# ---------------- CLIENT ----------------
 app = Client(
     "userbot",
     api_id=API_ID,
@@ -14,10 +20,9 @@ app = Client(
 )
 
 
-# ---------------- BASIC COMMANDS ----------------
 @app.on_message(filters.command("alive", "."))
 async def alive(_, m):
-    await m.reply("🔥 Userbot is Alive")
+    await m.reply("🔥 Alive")
 
 
 @app.on_message(filters.command("ping", "."))
@@ -25,17 +30,16 @@ async def ping(_, m):
     await m.reply("🏓 Pong")
 
 
-# ---------------- LOAD MODULES ----------------
-admin.init(app)
-ranks.init(app)
-activity.init(app)
-filter.init(app)
-profile.init(app)
-music.init(app)
-logger.init(app)
-welcome.init(app)
+# LOAD MODULES (SAFE METHOD)
+admin_init(app)
+ranks_init(app)
+activity_init(app)
+filter_init(app)
+profile_init(app)
+music_init(app)
+logger_init(app)
+welcome_init(app)
 
 
-# ---------------- START BOT ----------------
-print("🚀 Userbot Starting...")
+print("🚀 Bot Started")
 app.run()
